@@ -69,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 1. API Configuration
+// 1. YouTube Data Configuration
 const API_KEY = 'AIzaSyCBBVp4Qw8l6LTFQ0zMdrzzz7uzZH9mjxY';
 const CHANNEL_ID = 'UCFfq8nFDK1sjcXzHmc_Bd2w';
 
-// 2. Function to fetch and display videos
+// 2. Fetch and Display Videos
 async function fetchYouTubeVideos() {
     const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`;
 
@@ -81,24 +81,24 @@ async function fetchYouTubeVideos() {
         const response = await fetch(url);
         const data = await response.json();
         
-        // This ID matches your HTML exactly: "videoContainer"
+        // This matches your HTML ID: videoContainer
         const videoList = document.getElementById('videoContainer');
         
         if (data.items && videoList) {
-            videoList.innerHTML = ''; // Clear the "Loading..." message
+            videoList.innerHTML = ''; // Clear loading message
 
             data.items.forEach(item => {
                 const videoId = item.id.videoId;
-                if (!videoId) return; 
+                if (!videoId) return;
 
                 const title = item.snippet.title;
                 const thumbnail = item.snippet.thumbnails.high.url;
 
                 const videoHTML = `
-                    <div class="video-card">
-                        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
-                            <img src="${thumbnail}" alt="${title}" style="width:100%; border-radius:8px;">
-                            <h3 style="font-size:16px; margin-top:10px; color:#333;">${title}</h3>
+                    <div class="video-card" style="margin-bottom: 20px; text-align: center;">
+                        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" style="text-decoration: none; color: inherit;">
+                            <img src="${thumbnail}" alt="${title}" style="width:100%; max-width: 400px; border-radius:12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                            <h3 style="font-size:1.1rem; margin-top:10px; padding: 0 10px;">${title}</h3>
                         </a>
                     </div>
                 `;
@@ -106,9 +106,9 @@ async function fetchYouTubeVideos() {
             });
         }
     } catch (error) {
-        console.error('Error loading YouTube videos:', error);
+        console.error('YouTube API Error:', error);
     }
 }
 
-// 3. Run the function when the page loads
+// 3. Initialize on Load
 window.addEventListener('DOMContentLoaded', fetchYouTubeVideos);
