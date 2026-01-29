@@ -69,51 +69,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 1. YOUR DATA
-const API_KEY = 'AIzaSyCBBVp4Qw8l6LTFQ0zMdrzzz7uzZH9mjxY'; 
-const CHANNEL_ID = 'UCFfq8nFDK1sjcXzHmc_Bd2w'; // Your actual Channel ID
+// 1. API Configuration
+const API_KEY = 'AIzaSyCBBVp4Qw8l6LTFQ0zMdrzzz7uzZH9mjxY';
+const CHANNEL_ID = 'UCFfq8nFDK1sjcXzHmc_Bd2w';
 
-// 2. FETCH VIDEOS FROM YOUTUBE
+// 2. Function to fetch and display videos
 async function fetchYouTubeVideos() {
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=9`;
+    const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`;
 
     try {
         const response = await fetch(url);
         const data = await response.json();
+        
+        // This ID matches your HTML exactly: "videoContainer"
+        const videoList = document.getElementById('videoContainer');
+        
+        if (data.items && videoList) {
+            videoList.innerHTML = ''; // Clear the "Loading..." message
 
-        if (data.items) {
-            displayVideos(data.items);
-        } else {
-            console.error("No videos found or API Error:", data);
+            data.items.forEach(item => {
+                const videoId = item.id.videoId;
+                if (!videoId) return; 
+
+                const title = item.snippet.title;
+                const thumbnail = item.snippet.thumbnails.high.url;
+
+                const videoHTML = `
+                    <div class="video-card">
+                        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+                            <img src="${thumbnail}" alt="${title}" style="width:100%; border-radius:8px;">
+                            <h3 style="font-size:16px; margin-top:10px; color:#333;">${title}</h3>
+                        </a>
+                    </div>
+                `;
+                videoList.innerHTML += videoHTML;
+            });
         }
     } catch (error) {
-        console.error("Error fetching YouTube data:", error);
+        console.error('Error loading YouTube videos:', error);
     }
 }
 
-// 3. DISPLAY VIDEOS ON YOUR WEBSITE
-function displayVideos(videos) {
-    const videoContainer = document.getElementById('video-container'); // Make sure this ID exists in your HTML
-    videoContainer.innerHTML = ''; 
-
-    videos.forEach(video => {
-        const videoId = video.id.videoId;
-        if (!videoId) return; // Skip if it's not a video
-
-        const videoElement = `
-            <div class="video-card">
-                <iframe 
-                    src="https://www.youtube.com/embed/${videoId}" 
-                    frameborder="0" 
-                    allowfullscreen>
-                </iframe>
-                <h3>${video.snippet.title}</h3>
-            </div>
-        `;
-        videoContainer.innerHTML += videoElement;
-    });
-}
-
-// Start the process
-
-fetchYouTubeVideos();
+// 3. Run the function when the page loads
+window.addEventListener('DOMContentLoaded', fetchYouTubeVideos);
