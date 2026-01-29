@@ -1,0 +1,571 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f2f6fb;
+    padding: 20px;
+    color: #222;
+}
+
+/* NAVBAR */
+nav ul {
+    background: linear-gradient(135deg, #1a5262, #248ea6);
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 35px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    color: #ffe38f;
+}
+
+/* TABLE */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 35px;
+}
+
+table {
+    width: 100%;
+    background: white;
+    border-radius: 14px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+th {
+    background: #1a5262;
+    color: white;
+    padding: 14px;
+}
+
+td {
+    padding: 14px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+/* Styling for the search input in Nav */
+.search-box {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+#videoSearch {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 180px;
+    transition: width 0.4s ease-in-out;
+}
+
+#videoSearch:focus {
+    width: 250px;
+    /* Expands when clicked */
+}
+
+.search-box {
+    position: relative;
+    /* Needed to position the dropdown */
+}
+
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    /* Hidden by default */
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    color: #333;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    text-align: left;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+    color: #1a5262;
+}
+
+/* Class to hide videos during search */
+.hidden {
+    display: none !important;
+}
+
+/* IMAGE */
+img {
+    max-width: 100%;
+    border-radius: 18px;
+    display: block;
+    margin: 25px auto;
+}
+
+/* FORM */
+.input-group {
+    background: white;
+    padding: 16px;
+    border-radius: 14px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+label {
+    font-weight: 600;
+}
+
+select,
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+    nav ul {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        background: white;
+        margin-bottom: 15px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 12px;
+        font-weight: bold;
+        color: #1a5262;
+    }
+
+}
+
+/* VIDEO LIST - Updated to Grid */
+.video-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* This makes it auto-responsive */
+    gap: 25px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* VIDEO CARD - Width removed so it fills the grid cell */
+.video-card {
+    background: #2d2d2d;
+    border-radius: 12px;
+    padding: 15px; /* Slightly more padding for a better look */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px); /* Adds a professional hover effect */
+}
+
+/* KEEP THIS - It's already perfect for 16:9 ratio */
+.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+
+
+
+/* Footer Styling */
+.main-footer {
+    background: #1a5262;
+    color: white;
+    padding: 40px 20px 20px;
+    margin-top: 50px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.footer-logo img {
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.footer-social h4 {
+    margin-bottom: 15px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.social-icons a.btn-youtube:hover {
+    background: #ff0000;
+}
+
+.social-icons a.btn-facebook:hover {
+    background: #1877f2;
+}
+
+/* TikTok Hover Effect */
+.social-icons a.btn-tiktok:hover {
+    background: #000000; /* Black background for TikTok */
+    color: #00f2ea;      /* Cyan glow effect on text */
+    box-shadow: 0 0 10px #ff0050; /* Pinkish glow for TikTok brand */
+}
+
+/* Updated Instagram for better consistency */
+.social-icons a.btn-instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 13px;
+    color: #ccc;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.suggestion-item span {
+    margin-right: 10px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+/* Container for the icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* This ensures they wrap inside the mobile screen */
+    width: 100%;
+    max-width: 400px; /* Limits width to fit mobile frames */
+    margin: 0 auto;
+}
+
+/* Individual Icon Buttons */
+.social-icons a {
+    text-decoration: none;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+    min-width: 100px; /* Ensures buttons have a consistent size */
+    text-align: center;
+    flex: 1 1 auto; /* Allows buttons to grow and shrink properly */
+}
+
+/* Mobile Specific Adjustments */
+@media (max-width: 480px) {
+    .social-icons {
+        gap: 8px;
+    }
+    
+    .social-icons a {
+        font-size: 12px;
+        padding: 8px 10px;
+        flex: 1 1 40%; /* On very small screens, this puts 2 icons per row */
+    }
+}
+
+/* Hover Effects */
+.social-icons a.btn-youtube:hover { background: #ff0000; }
+.social-icons a.btn-facebook:hover { background: #1877f2; }
+.social-icons a.btn-tiktok:hover { background: #000000; color: #00f2ea; box-shadow: 0 0 5px #ff0050; }
+.social-icons a.btn-instagram:hover { background: #e4405f; }
+
+.about-container {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.about-hero {
+    text-align: center;
+    padding: 40px 0;
+    background: linear-gradient(135deg, #1a5262, #248ea6);
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 40px;
+}
+
+.about-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about-text { flex: 2; }
+.about-image { flex: 1; text-align: center; }
+
+.about-image img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 50%;
+    border: 5px solid #f2f6fb;
+}
+
+.about-text h2 { color: #1a5262; margin-bottom: 15px; }
+.about-text p { margin-bottom: 20px; color: #555; }
+.services-section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.services-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.service-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-bottom: 4px solid #1a5262;
+}
+
+.service-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.community-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.comment-form input, .comment-form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+}
+
+.comment-form button {
+    background: #1a5262;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.comment-form button:hover { background: #248ea6; }
+
+.comment-item {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 5px solid #1a5262;
+    animation: fadeIn 0.5s ease;
+}
+
+.comment-item h4 { color: #1a5262; margin-bottom: 5px; }
+
+.community-hub {
+    text-align: center;
+    padding: 50px 20px;
+    background: #fff;
+    border-radius: 20px;
+    margin: 40px auto;
+    max-width: 1100px;
+}
+
+.community-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.hub-card {
+    text-decoration: none;
+    color: #333;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    transition: 0.3s;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hub-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.hub-icon { font-size: 40px; margin-bottom: 15px; }
+
+/* Brand Accents */
+.btn-whatsapp:hover { border-bottom: 5px solid #25D366; }
+.btn-youtube:hover { border-bottom: 5px solid #FF0000; }
+.btn-facebook:hover { border-bottom: 5px solid #1877F2; }
+
+.card-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.mini-btn {
+    text-decoration: none;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Platform Colors */
+.mini-btn.yt { background: #ff0000; }
+.mini-btn.fb { background: #1877f2; }
+.mini-btn.tt { background: #000; }
+.mini-btn.ig { background: #e4405f; }
+
+.mini-btn:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
