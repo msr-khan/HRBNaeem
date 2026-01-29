@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 1. YOUR DATA
-const API_KEY = 'PASTE_YOUR_COPIED_API_KEY_HERE'; 
-const CHANNEL_ID = 'https://www.youtube.com/channel/UCFfq8nFDK1sjcXzHmc_Bd2w'; // Your actual Channel ID
+const API_KEY = 'AIzaSyCBBVp4Qw8l6LTFQ0zMdrzzz7uzZH9mjxY'; 
+const CHANNEL_ID = 'UCFfq8nFDK1sjcXzHmc_Bd2w'; // Your actual Channel ID
 
 // 2. FETCH VIDEOS FROM YOUTUBE
 async function fetchYouTubeVideos() {
@@ -115,4 +115,5 @@ function displayVideos(videos) {
 }
 
 // Start the process
+
 fetchYouTubeVideos();
