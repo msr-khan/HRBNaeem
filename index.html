@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRBNaeem</title>
+    <title>HRBNaeem web</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<main>
-    
+<body>
+
     <nav>
         <div class="nav-links">
             <ul>
@@ -16,24 +16,21 @@
                 <li><a href="services.html">Services</a></li>
                 <li><a href="Contact.html">Contact</a></li>
                 <li class="search-box">
-                    <input type="text" id="videoSearch" placeholder="Search videos..." 
-                           onkeyup="filterVideos()" onfocus="showSuggestions()">
-                    <div id="suggestionList" class="suggestions-dropdown"></div>
-                </li>
+    <input type="text" id="videoSearch" placeholder="Search videos..." autocomplete="off">
+    <div id="suggestionList" class="suggestions-dropdown"></div>
+</li>
             </ul>
         </div>
     </nav>
-</main>
-<body>
+
     <div class="baner">
         <img src="imag/baner.jpg" alt="Banner">
     </div>
 
     <div class="video-list" id="videoContainer">
-    <p style="text-align:center; color:#1a5262; grid-column: 1/-1;">Loading latest videos...</p>
-</div>
-
-    <footer class="main-footer">
+        <p style="text-align:center; color:#1a5262; grid-column: 1/-1;">Fetching videos from YouTube...</p>
+    </div>
+ <footer class="main-footer">
         <div class="footer-content">
             <div class="footer-logo">
                 <img src="imag/channels4_profile-Picsart-BackgroundRemover.jpg" alt="Footer Logo">
