@@ -160,3 +160,138 @@ function initSearch(videoTitles) {
 document.addEventListener('DOMContentLoaded', fetchYouTubeVideos);
 
 
+
+// Selecting Elements
+const blogGrid = document.getElementById('blogGrid');
+const searchInput = document.getElementById('smartSearch');
+const resultsBox = document.getElementById('resultsDropdown');
+
+/**
+ * 1. Initialize Homepage Cards
+ * This function builds the cards using data from blog-data.js
+ */
+function init() {
+    // Check if blogDatabase exists to avoid errors
+    if (typeof blogDatabase !== 'undefined' && blogGrid) {
+        blogGrid.innerHTML = blogDatabase.map(blog => `
+            <div class="card">
+                <h3>${blog.title}</h3>
+                <p>${blog.summary}</p>
+                <br>
+                <a href="post.html?id=${blog.id}" style="color:var(--accent); text-decoration:none; font-weight:bold;">مزید پڑھیں ←</a>
+            </div>
+        `).join('');
+    }
+}
+
+/**
+ * 2. Smart Search Logic
+ * Searches in both Title and Tags
+ */
+function executeSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+    resultsBox.innerHTML = "";
+
+    if (query.length > 0) {
+        // Filter from the central blogDatabase
+        const matches = blogDatabase.filter(b => 
+            b.title.toLowerCase().includes(query) || 
+            b.tags.toLowerCase().includes(query)
+        );
+
+        if (matches.length > 0) {
+            matches.forEach(m => {
+                // Dropdown link also uses the ID
+                resultsBox.innerHTML += `<a href="post.html?id=${m.id}" class="list-item">🔍 ${m.title}</a>`;
+            });
+            resultsBox.style.display = "block";
+        } else {
+            resultsBox.innerHTML = `<div class="list-item">No results found</div>`;
+            resultsBox.style.display = "block";
+        }
+    } else {
+        resultsBox.style.display = "none";
+    }
+}
+
+// Close search list on outside click
+document.addEventListener('click', (e) => {
+    if (e.target !== searchInput) resultsBox.style.display = "none";
+});
+
+// Run init when page loads
+init();
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        const title = card.querySelector('h3');
+        const content = card.querySelector('.card-paragraph');
+
+        title.addEventListener('click', () => {
+            // Check if already open
+            const isOpen = content.classList.contains('reveal-active');
+            
+            // Close all others first (Optional: for a clean look)
+            document.querySelectorAll('.card-paragraph').forEach(p => {
+                p.style.maxHeight = null;
+                p.classList.remove('reveal-active');
+            });
+
+            // Toggle current
+            if (!isOpen) {
+                content.classList.add('reveal-active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+});
+
+
+
+
+
+
+/** * MASTER BLOG DATABASE
+ * Use this file to add, edit, or remove blogs from your website.
+ * Follow the format below for each new entry.
+ */
+function displayBlogs(blogs) {
+    const grid = document.getElementById('blogGrid');
+    if (!grid) {
+        console.error("Error: blogGrid element not found!");
+        return;
+    }
+    
+    grid.innerHTML = '';
+
+    blogs.forEach(article => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // This makes the card clickable
+        card.onclick = () => {
+            window.location.href = `post.html?id=${article.id}`;
+        };
+
+        card.innerHTML = `
+            <div class="card-image-box">
+                <img src="${article.image}" alt="${article.title}">
+            </div>
+            <div class="card-content">
+                <h3>${article.title}</h3>
+                <p>${article.summary}</p>
+                <div class="read-more-btn">مزید پڑھیں ←</div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// IMPORTANT: Use the exact name from blog-data.js here
+displayBlogs(blogDatabase);
