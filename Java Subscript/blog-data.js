@@ -9,7 +9,7 @@ const blogDatabase = [
         id: 1, // Unique ID for each blog (1, 2, 3...)
         title: "نماز کا مکمل طریقہ", // The main title shown on the card
         tags: "namaz ka tarika, prayer method, how to pray, salat, salah", // SMART SEARCH KEYWORDS (Roman, English, Urdu)
-        image: "imag/namaz.jpg", // Path to your blog image
+        image: "imag/zamaz.png", // Path to your blog image
         summary: "content: 
             `نماز دین کا ستون ہے اور ہر مسلمان پر فرض ہے۔ ذیل میں نماز پڑھنے کا مکمل اور درست طریقہ بیان کیا گیا 
             
