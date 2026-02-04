@@ -295,3 +295,4 @@ function displayBlogs(blogs) {
 
 // IMPORTANT: Use the exact name from blog-data.js here
 displayBlogs(blogDatabase);
+
